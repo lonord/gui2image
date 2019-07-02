@@ -21,6 +21,34 @@ func TestRenderPaper(t *testing.T) {
 	matchFile(t, "TestRenderPaper.png", b.Bytes())
 }
 
+func TestRenderPaperMulti(t *testing.T) {
+	parent := &Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}
+	child := &Paper{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(50, 50, 150, 150)}
+	child2 := &Paper{Background: color.RGBA{255, 0, 0, 255}, Bounds: image.Rect(25, 75, 125, 175)}
+	child3 := &Paper{Background: color.RGBA{0, 255, 0, 255}, Bounds: image.Rect(75, 25, 175, 125)}
+	parent.AddSub(child)
+	parent.AddSub(child2)
+	parent.AddSub(child3)
+	img := parent.Image()
+	var b bytes.Buffer
+	png.Encode(&b, img)
+	matchFile(t, "TestRenderPaperMulti.png", b.Bytes())
+}
+
+func TestRenderPaperTree(t *testing.T) {
+	parent := &Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}
+	child := &Paper{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(50, 50, 150, 150)}
+	child2 := &Paper{Background: color.RGBA{255, 0, 0, 255}, Bounds: image.Rect(5, 5, 80, 80)}
+	child3 := &Paper{Background: color.RGBA{0, 255, 0, 255}, Bounds: image.Rect(5, 5, 55, 55)}
+	parent.AddSub(child)
+	child.AddSub(child2)
+	child2.AddSub(child3)
+	img := parent.Image()
+	var b bytes.Buffer
+	png.Encode(&b, img)
+	matchFile(t, "TestRenderPaperTree.png", b.Bytes())
+}
+
 func matchFile(t *testing.T, name string, b []byte) {
 	path := filepath.Join("testdata", name)
 	fileBytes, err := ioutil.ReadFile(path)

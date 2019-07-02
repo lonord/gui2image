@@ -12,8 +12,7 @@ type Paper struct {
 	Bounds     image.Rectangle
 
 	// private fields
-	parent *Paper
-	sub    []View
+	sub []View
 }
 
 // Image implements method of View
@@ -22,9 +21,10 @@ func (p *Paper) Image() image.Image {
 	// fill background
 	draw.Draw(img, img.Bounds(), image.NewUniform(p.Background), image.ZP, draw.Src)
 	// draw sub views
+	min := p.Bounds.Min
 	for _, sv := range p.sub {
 		simg := sv.Image()
-		draw.Draw(img, simg.Bounds(), simg, simg.Bounds().Min, draw.Src)
+		draw.Draw(img, simg.Bounds().Add(min), simg, simg.Bounds().Min, draw.Src)
 	}
 	return img
 }
@@ -48,5 +48,11 @@ func (p *Paper) RemoveSub(sub View) {
 	}
 	if di != -1 {
 		p.sub = append(p.sub[:di], p.sub[di+1:]...)
+	}
+}
+
+func (p *Paper) checkDefault() {
+	if p.Background == nil {
+		p.Background = color.White
 	}
 }
