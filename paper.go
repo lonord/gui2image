@@ -2,14 +2,12 @@ package gui2image
 
 import (
 	"image"
-	"image/color"
 	"image/draw"
 )
 
-// Paper is the base view
+// Paper is the content view
 type Paper struct {
-	Background color.Color
-	Bounds     image.Rectangle
+	Control
 
 	// private fields
 	sub []View
@@ -53,7 +51,5 @@ func (p *Paper) RemoveSub(sub View) {
 }
 
 func (p *Paper) checkDefault() {
-	if p.Background == nil {
-		p.Background = color.White
-	}
+	p.Control.checkDefault()
 }

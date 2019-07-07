@@ -12,8 +12,8 @@ import (
 )
 
 func TestRenderPaper(t *testing.T) {
-	parent := &Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}
-	child := &Paper{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(10, 10, 100, 100)}
+	parent := &Paper{Control: Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}}
+	child := &Paper{Control: Control{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(10, 10, 100, 100)}}
 	parent.AddSub(child)
 	img := parent.Image()
 	var b bytes.Buffer
@@ -22,10 +22,10 @@ func TestRenderPaper(t *testing.T) {
 }
 
 func TestRenderPaperMulti(t *testing.T) {
-	parent := &Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}
-	child := &Paper{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(50, 50, 150, 150)}
-	child2 := &Paper{Background: color.RGBA{255, 0, 0, 255}, Bounds: image.Rect(25, 75, 125, 175)}
-	child3 := &Paper{Background: color.RGBA{0, 255, 0, 255}, Bounds: image.Rect(75, 25, 175, 125)}
+	parent := &Paper{Control: Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}}
+	child := &Paper{Control: Control{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(50, 50, 150, 150)}}
+	child2 := &Paper{Control: Control{Background: color.RGBA{255, 0, 0, 255}, Bounds: image.Rect(25, 75, 125, 175)}}
+	child3 := &Paper{Control: Control{Background: color.RGBA{0, 255, 0, 255}, Bounds: image.Rect(75, 25, 175, 125)}}
 	parent.AddSub(child)
 	parent.AddSub(child2)
 	parent.AddSub(child3)
@@ -36,10 +36,10 @@ func TestRenderPaperMulti(t *testing.T) {
 }
 
 func TestRenderPaperTree(t *testing.T) {
-	parent := &Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}
-	child := &Paper{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(50, 50, 150, 150)}
-	child2 := &Paper{Background: color.RGBA{255, 0, 0, 255}, Bounds: image.Rect(5, 5, 80, 80)}
-	child3 := &Paper{Background: color.RGBA{0, 255, 0, 255}, Bounds: image.Rect(5, 5, 55, 55)}
+	parent := &Paper{Control: Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)}}
+	child := &Paper{Control: Control{Background: color.RGBA{0, 0, 0, 255}, Bounds: image.Rect(50, 50, 150, 150)}}
+	child2 := &Paper{Control: Control{Background: color.RGBA{255, 0, 0, 255}, Bounds: image.Rect(5, 5, 80, 80)}}
+	child3 := &Paper{Control: Control{Background: color.RGBA{0, 255, 0, 255}, Bounds: image.Rect(5, 5, 55, 55)}}
 	parent.AddSub(child)
 	child.AddSub(child2)
 	child2.AddSub(child3)
@@ -51,7 +51,7 @@ func TestRenderPaperTree(t *testing.T) {
 
 func TestRenderLabelDefault(t *testing.T) {
 	label := &Label{
-		Paper:     Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Control:   Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
 		Text:      "hello world",
 		FontSize:  12,
 		TextColor: color.Black,
@@ -64,7 +64,7 @@ func TestRenderLabelDefault(t *testing.T) {
 
 func TestRenderLabelCenter(t *testing.T) {
 	label := &Label{
-		Paper:     Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Control:   Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
 		Text:      "hello world",
 		FontSize:  12,
 		TextColor: color.Black,
@@ -79,7 +79,7 @@ func TestRenderLabelCenter(t *testing.T) {
 
 func TestRenderLabelEnd(t *testing.T) {
 	label := &Label{
-		Paper:     Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Control:   Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
 		Text:      "hello world",
 		FontSize:  12,
 		TextColor: color.Black,

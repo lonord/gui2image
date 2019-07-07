@@ -25,7 +25,7 @@ type AlignType int
 
 // Label is the view display text
 type Label struct {
-	Paper
+	Control
 	Text      string
 	TextColor color.Color
 	VAlign    AlignType
@@ -94,7 +94,7 @@ func (l *Label) draw(img draw.Image, px, py int) (int, int) {
 }
 
 func (l *Label) checkDefault() {
-	l.Paper.checkDefault()
+	l.Control.checkDefault()
 	if l.TextColor == nil {
 		l.TextColor = color.Black
 	}
