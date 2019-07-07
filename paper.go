@@ -17,6 +17,7 @@ type Paper struct {
 
 // Image implements method of View
 func (p *Paper) Image() image.Image {
+	p.checkDefault()
 	img := image.NewRGBA(p.Bounds)
 	// fill background
 	draw.Draw(img, img.Bounds(), image.NewUniform(p.Background), image.ZP, draw.Src)

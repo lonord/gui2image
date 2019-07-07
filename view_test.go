@@ -49,6 +49,49 @@ func TestRenderPaperTree(t *testing.T) {
 	matchFile(t, "TestRenderPaperTree.png", b.Bytes())
 }
 
+func TestRenderLabelDefault(t *testing.T) {
+	label := &Label{
+		Paper:     Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Text:      "hello world",
+		FontSize:  12,
+		TextColor: color.Black,
+	}
+	img := label.Image()
+	var b bytes.Buffer
+	png.Encode(&b, img)
+	matchFile(t, "TestRenderLabelDefault.png", b.Bytes())
+}
+
+func TestRenderLabelCenter(t *testing.T) {
+	label := &Label{
+		Paper:     Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Text:      "hello world",
+		FontSize:  12,
+		TextColor: color.Black,
+		HAlign:    AlignCenter,
+		VAlign:    AlignCenter,
+	}
+	img := label.Image()
+	var b bytes.Buffer
+	png.Encode(&b, img)
+	matchFile(t, "TestRenderLabelCenter.png", b.Bytes())
+}
+
+func TestRenderLabelEnd(t *testing.T) {
+	label := &Label{
+		Paper:     Paper{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Text:      "hello world",
+		FontSize:  12,
+		TextColor: color.Black,
+		HAlign:    AlignEnd,
+		VAlign:    AlignEnd,
+	}
+	img := label.Image()
+	var b bytes.Buffer
+	png.Encode(&b, img)
+	matchFile(t, "TestRenderLabelEnd.png", b.Bytes())
+}
+
 func matchFile(t *testing.T, name string, b []byte) {
 	path := filepath.Join("testdata", name)
 	fileBytes, err := ioutil.ReadFile(path)
