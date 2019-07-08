@@ -70,7 +70,7 @@ func (l *Label) Image() image.Image {
 	if px < 0 {
 		px = 0
 	}
-	l.draw(img, px, py)
+	l.draw(img, px+l.Bounds.Min.X, py+l.Bounds.Min.Y)
 	return img
 }
 
