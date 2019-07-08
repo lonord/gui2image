@@ -47,7 +47,7 @@ func (l *Label) Image() image.Image {
 	l.checkDefault()
 	img := image.NewRGBA(l.Bounds)
 	// fill background
-	draw.Draw(img, img.Bounds(), image.NewUniform(l.Background), image.ZP, draw.Src)
+	draw.Draw(img, img.Bounds(), image.NewUniform(l.Background), image.ZP, draw.Over)
 	// get text width and height
 	img0 := image.NewRGBA(image.Rect(0, 0, (l.Bounds.Max.X-l.Bounds.Min.X)*2, (l.Bounds.Max.Y-l.Bounds.Min.Y)*2))
 	width, height := l.draw(img0, 0, 0)

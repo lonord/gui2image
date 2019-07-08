@@ -18,12 +18,12 @@ func (p *Paper) Image() image.Image {
 	p.checkDefault()
 	img := image.NewRGBA(p.Bounds)
 	// fill background
-	draw.Draw(img, img.Bounds(), image.NewUniform(p.Background), image.ZP, draw.Src)
+	draw.Draw(img, img.Bounds(), image.NewUniform(p.Background), image.ZP, draw.Over)
 	// draw sub views
 	min := p.Bounds.Min
 	for _, sv := range p.sub {
 		simg := sv.Image()
-		draw.Draw(img, simg.Bounds().Add(min), simg, simg.Bounds().Min, draw.Src)
+		draw.Draw(img, simg.Bounds().Add(min), simg, simg.Bounds().Min, draw.Over)
 	}
 	return img
 }

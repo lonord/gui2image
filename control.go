@@ -17,7 +17,7 @@ func (p *Control) Image() image.Image {
 	p.checkDefault()
 	img := image.NewRGBA(p.Bounds)
 	// fill background
-	draw.Draw(img, img.Bounds(), image.NewUniform(p.Background), image.ZP, draw.Src)
+	draw.Draw(img, img.Bounds(), image.NewUniform(p.Background), image.ZP, draw.Over)
 	return img
 }
 

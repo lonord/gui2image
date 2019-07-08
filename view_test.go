@@ -7,6 +7,7 @@ import (
 	"image/png"
 	"io"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -90,6 +91,25 @@ func TestRenderLabelEnd(t *testing.T) {
 	var b bytes.Buffer
 	png.Encode(&b, img)
 	matchFile(t, "TestRenderLabelEnd.png", b.Bytes())
+}
+
+func TestRenderImageView(t *testing.T) {
+	f, err := os.Open(filepath.Join("testdata", "TestRenderImageView.Input.png"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	imgIn, err := png.Decode(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	imgView := &ImageView{
+		Control: Control{Background: color.RGBA{255, 255, 255, 255}, Bounds: image.Rect(0, 0, 200, 200)},
+		Img:     imgIn,
+	}
+	img := imgView.Image()
+	var b bytes.Buffer
+	png.Encode(&b, img)
+	matchFile(t, "TestRenderImageView.png", b.Bytes())
 }
 
 func matchFile(t *testing.T, name string, b []byte) {
